@@ -145,7 +145,8 @@ public class ElemeOrderHandler implements OrderHandlerIntf {
     private JSONObject fixData(JSONObject jo) {
         JSONObject fixJo = new JSONObject();
         
-        fixJo.put("orderTime", JsonUtil.getString(jo, "activeTime"));
+        fixJo.put("orderTime",
+                JsonUtil.getString(jo, "activeTime").replace("T", " "));
         fixJo.put("orderNo", JsonUtil.getString(jo, "id"));
         fixJo.put("userName", JsonUtil.getString(jo, "consigneeName"));
         //        fixJo.put("sex", JsonUtil.getString(fixJo, "consigneeName"));

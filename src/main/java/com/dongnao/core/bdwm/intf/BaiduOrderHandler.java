@@ -237,11 +237,15 @@ public class BaiduOrderHandler implements OrderHandlerIntf {
     }
     
     public static void main(String[] args) {
+        String orderInfo = HttpUtil.doGet("https://wmcrm.baidu.com/crm?qt=orderlist&qt=orderlist&display=json",
+                "WMPTOKEN=IAAK8DAABmdw4gfSFyJAMBNFcHGyZfU2dtEB-chmwyMTgAAAguZFQJVQQf_eDYCC; expires=Sun, 28-May-2017 03:45:08 GMT; Max-Age=2592000; path=/; domain=wmpass.baidu.com; HttpOnly;WMUSS=ECAAA9VEgVWmI7OTYiJkUqVCp-XH8Ce1p8CRxvI31gXVF0GyU8L38faThUDF4aGcgvRY8hQAANjJDNA9CNgodMxI5IzU2AxMIdi0sM1wrUUZjJVFBPghzAjwCQ3IMYCUeGUdSTkpkVkESA3NtLkQz%7ETo7Ci4sWBHZMc8M033nDpC1uBDFdHINyyIEAhAkAAL; expires=Sun, 28-May-2017 03:45:08 GMT; Max-Age=2592000; path=/; domain=.baidu.com; HttpOnly;newyear=open;new_remind_time=1491707183;new_order_time=1491707474;WMSTOKEN=oAAJMTAABLX29jJ0EycCYIMTgKJCU4aFhIUV0aeGleITIkDGgAAt1V0pkO3AmbGFMdBIEfv2zpwZnP8cQjE4AAGRmfxUxDQAATu_mF5hgHRsUZysaALAAAAcp3yD84WB",
+                "");
+        log.info(orderInfo);
         //        String queryStr = "?token=3sAAAcdN2YfFVxBQUEfFA5lZhg_GzMGLzAlJR9NJ0phVUdwAiAAQBs8AYANBQUFBQXceWV49bjpcAkhBaGB-AxQGMkMqVmF2fSxXUnNIVBZBQUFBQUFBQHJvHjBdWAxeIU1GAU1JFdzT&t=1490854769008&color=3c78d8";
         //        String getStr = "https://wmcrm.baidu.com/crm?qt=neworderlist&display=json";
         //        String getret = HttpRequest.sendGet(getStr);
         
-        log.info(new BaiduOrderHandler().dateParse(1491709145000L));
+        //        log.info(new BaiduOrderHandler().dateParse(1491709145000L));
         //        String retStr1 = HttpRequest.sendGet("https://wmpass.baidu.com/wmpass/openservice/captchapair?protocal=https&callback=jQuery1110015827547668209752_1490844419324&_=1490844419343");
         //        String data = retStr1.substring((retStr1.indexOf("(")) + 1)
         //                .replace(");", "");

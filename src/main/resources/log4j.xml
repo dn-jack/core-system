@@ -12,7 +12,7 @@
 	<appender name="FILE" class="org.apache.log4j.DailyRollingFileAppender">
 		<param name="DatePattern" value="'.'yyyy-MM-dd" />
 		<param name="Append" value="true" />
-		<param name="file" value="${system.log.path}/sysmanm-web.log" />
+		<param name="file" value="${system.log.path}/core.log" />
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%d [%7r] %6p - %t - %30.30c - %m \n" />
 		</layout>
@@ -24,7 +24,7 @@
 	
 	<appender name="FILE-DEBUG" class="org.apache.log4j.FileAppender">
         <param name="Append" value="false"/>
-        <param name="file" value="${system.log.path}/sysmanm-web.log"/>
+        <param name="file" value="${system.log.path}/core.log"/>
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="%d [%7r] %6p - %t - %30.30c - %m \n"/>
         </layout>
@@ -33,7 +33,7 @@
 	<appender name="FILE_CONTROLLER_ERROR" class="org.apache.log4j.DailyRollingFileAppender">
 		<param name="DatePattern" value="'.'yyyy-MM-dd" />
 		<param name="Append" value="true" />
-		<param name="file" value="${system.log.path}/sysmanm-web.log" />
+		<param name="file" value="${system.log.path}/core.log" />
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%d [%7r] %6p - %t - %30.30c - %m \n" />
 		</layout>
@@ -45,7 +45,7 @@
 
 	<appender name="FILE-SQL" class="org.apache.log4j.DailyRollingFileAppender">
 		<param name="DatePattern" value="'.'yyyy-MM-dd" />
-		<param name="file" value="${system.log.path}/sysmanm-web.log" />
+		<param name="file" value="${system.log.path}/core.log" />
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%d [%7r] %6p - %t - %30.30c - %m \n" />
 		</layout>

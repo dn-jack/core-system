@@ -33,6 +33,18 @@
 	<bean id="baiduThreadTemp" class="com.dongnao.core.bdwm.intf.BaiduThreadTemp">
 		<property name="intf" ref="baiduOrderHandler"></property>
 	</bean>
+	
+	<!-- 饿了么数据比对 -->
+	<bean id="elemeCheckData" class="com.dongnao.core.checkdata.ElemeCheckData">
+	</bean>
+	
+	<!-- 美团数据比对 -->
+	<bean id="mtCheckData" class="com.dongnao.core.checkdata.MtCheckData">
+	</bean>
+	
+	<!-- 百度外卖数据比对 -->
+	<bean id="bdwmCheckData" class="com.dongnao.core.checkdata.BdwmCheckData">
+	</bean>
 
     <bean id="scheduleManagerFactory"
         class="com.taobao.pamirs.schedule.strategy.TBScheduleManagerFactory"

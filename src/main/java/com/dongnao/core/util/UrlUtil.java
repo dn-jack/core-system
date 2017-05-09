@@ -18,8 +18,24 @@ public class UrlUtil {
     
     public static String MT_logon = "http://e.waimai.meituan.com/v2/epassport/logon";
     
+    public static String mtQuery = "https://waimaie.meituan.com/v2/order/history/r/query";
+    
     /**
      * 百度外卖url
      */
     public static String BD_neworderlist = "https://wmcrm.baidu.com/crm?hhs=secure&qt=neworderlist&display=json";
+    
+    /**
+     * 掉用商铺平台接口
+     */
+    public static String queryOrderUrl = "http://180.76.134.65:8090/merchant-system/order/queryOrder";
+    
+    public static String orderInsertBatchDb = "http://180.76.134.65:8090/merchant-system/order/orderInsertBatchDb";
+    
+    //"http://localhost:8080/merchant-system/order/orderInsertBatchDb";
+    
+    //"http://180.76.134.65:8090/merchant-system/order/orderInsertBatchDb";
+    
+    public static String queryShop = "http://180.76.134.65:8080/dncyz/store/listStoreByPlatform.do";
+    
 }

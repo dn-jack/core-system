@@ -39,21 +39,24 @@ public class ElemeUtil {
     
     public static JSONObject queryOrderJo() {
         JSONObject paramJo = new JSONObject();
-        paramJo.put("id", "6a69984a-e07e-4095-9379-5a7af0905a45");
+        paramJo.put("id", "48465894-3740-4bff-8463-c8ebb2e9e3cf");
         paramJo.put("method", "queryOrder");
         paramJo.put("service", "OrderService");
         JSONObject params = new JSONObject();
         params.put("shopId", "1028679");
         params.put("orderFilter", "UNPROCESSED_ORDERS");
         JSONObject conditionJo = new JSONObject();
+        //        conditionJo.put("page", 1);
+        conditionJo.put("limit", 10);
+        conditionJo.put("offset", 0);
         conditionJo.put("page", 1);
-        conditionJo.put("orderIds", new JSONArray());
         params.put("condition", conditionJo);
         paramJo.put("params", params);
         JSONObject metas = new JSONObject();
         metas.put("appName", "melody");
         metas.put("appVersion", "4.4.2");
         metas.put("ksid", "OTM4NjMxOGItODkxZC00ZTllLTg1ZWMjE5OW");
+        metas.put("pcVersion", "1.0.0");
         paramJo.put("metas", metas);
         paramJo.put("ncp", "2.0.0");
         return paramJo;
@@ -66,10 +69,11 @@ public class ElemeUtil {
         paramJo.put("service", "OrderService");
         JSONObject params = new JSONObject();
         params.put("shopId", "1028679");
-        params.put("orderFilter", "UNPROCESSED_ORDERS");
+        params.put("orderFilter", "ORDER_QUERY_ALL");
         JSONObject conditionJo = new JSONObject();
         conditionJo.put("page", 1);
-        conditionJo.put("orderIds", new JSONArray());
+        conditionJo.put("limit", 20);
+        conditionJo.put("offset", 0);
         params.put("condition", conditionJo);
         paramJo.put("params", params);
         JSONObject metas = new JSONObject();
