@@ -1,5 +1,6 @@
 package com.dongnao.core.util;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -53,6 +54,25 @@ public class JsonUtil {
      */
     public static boolean isListEmpty(List<?> list) {
         return list == null || list.isEmpty();
+    }
+    
+    public static Integer getInteger(JSONObject jo, String name) {
+        
+        if (!jo.containsKey(name)) {
+            return 0;
+        }
+        
+        return jo.getInteger(name);
+    }
+    
+    public static BigDecimal getBigDecimal(JSONObject jo, String name) {
+        
+        if (!jo.containsKey(name)) {
+            return new BigDecimal(0.0);
+        }
+        BigDecimal com = new BigDecimal(0);
+        return jo.getBigDecimal(name).compareTo(com) >= 0 ? jo.getBigDecimal(name)
+                : jo.getBigDecimal(name).multiply(new BigDecimal(-1));
     }
     
     public static String getString(JSONObject jo, String name) {
