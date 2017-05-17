@@ -537,6 +537,8 @@ public class MtCheckData implements IScheduleTaskDealMulti<JSONObject> {
                 fixJo.put("is_invalid", "0");
             }
             
+            double prices = 0.0;
+            
             if (JsonUtil.isNotBlank(jo.get("cartDetailVos"))) {
                 JSONArray dishesJa = new JSONArray();
                 for (Object o : jo.getJSONArray("cartDetailVos")) {
@@ -560,16 +562,29 @@ public class MtCheckData implements IScheduleTaskDealMulti<JSONObject> {
                             dishJo.put("goods_price",
                                     JsonUtil.getString(detailJo,
                                             "origin_food_price"));
+                            if (JsonUtil.isNotBlank(detailJo.get("origin_food_price"))) {
+                                prices += detailJo.getDouble("origin_food_price");
+                            }
                             dishesJa.add(dishJo);
                         }
                     }
                 }
                 fixJo.put("dishes", dishesJa);
             }
+            
+            if (chargeJo.containsKey("giftDetails")
+                    && JsonUtil.isNotBlank(chargeJo.get("giftDetails"))) {
+                JSONArray gifts = chargeJo.getJSONArray("giftDetails");
+                for (Object gift : gifts) {
+                    JSONObject giftJo = (JSONObject)gift;
+                    if (JsonUtil.isNotBlank(giftJo.get("giftAmount"))) {
+                        prices += giftJo.getDouble("giftAmount");
+                    }
+                }
+            }
+            
             fixJo.put("boxPrice", JsonUtil.getString(jo, "boxPriceTotal"));
-            fixJo.put("orderPrice",
-                    chargeJo.getInteger("foodAmount")
-                            - jo.getInteger("boxPriceTotal"));
+            fixJo.put("orderPrice", prices);
             fixJo.put("state", "0");
             fixJo.put("merchantName", JsonUtil.getString(jo, "poi_name"));
             fixJo.put("platform_type", "mt");
@@ -683,54 +698,58 @@ public class MtCheckData implements IScheduleTaskDealMulti<JSONObject> {
     }
     
     public static void main(String[] args) {
-        System.out.print(Double.valueOf("-￥44.0".substring("-￥44.0".indexOf("￥") + 1)));
-        //        MtCheckData aa = new MtCheckData();
-        //        String cookies = "JSESSIONID=1043u4au55euwpx8nf2c02gk1;Path=/;shopCategory=food;Path=/;Expires=Thu, 04-May-2017 05:03:24 GMT;wpush_server_url=wss://wpush.meituan.com;Path=/;device_uuid_rebuild=;Path=/;Expires=Thu, 01-Jan-1970 00:00:00 GMT;uuid_update=true;Path=/;Expires=Tue, 03-May-2022 03:03:24 GMT;device_uuid=!7009afc1-e892-4562-9404-77fda8d2b3b3;Path=/;Expires=Tue, 03-May-2022 03:03:24 GMT;existBrandPoi=false;Path=/;Expires=Sat, 03-Jun-2017 03:03:24 GMT;isChain=0;Path=/;Expires=Sat, 03-Jun-2017 03:03:24 GMT;shopCategory=food;Path=/;Expires=Thu, 04-May-2017 04:03:24 GMT;city_id=430100;Path=/;Expires=Sat, 03-Jun-2017 03:03:24 GMT;isOfflineSelfOpen=0;Path=/;Expires=Sat, 03-Jun-2017 03:03:24 GMT;selfOpenWmPoiList=[];Path=/;Expires=Sat, 03-Jun-2017 03:03:24 GMT;wmPoiId=2030425;Path=/;Expires=Sat, 03-Jun-2017 03:03:24 GMT;brandId=-1;Path=/;Expires=Sat, 03-Jun-2017 03:03:24 GMT;token=0rbug-Aoz0Yl4pqSu2-8DRujX3W-iUXBXM1Sn396fJSY*;Path=/;Expires=Sat, 03-Jun-2017 03:03:24 GMT;acctId=24990412;Path=/;Expires=Sat, 03-Jun-2017 03:03:24 GMT;wpush_server_url=wss://wpush.meituan.com;Path=/;";
-        //        String queryStr = "?getNewVo=1&wmOrderPayType=2&wmOrderStatus=-2&sortField=1&lastLabel=&nextLabel=&_token="
-        //                + aa.getValue(cookies, "token");
-        //        queryStr = queryStr + "&startDate=" + "2017-05-03" + "&endDate="
-        //                + "2017-05-03";
+        //        System.out.print(Double.valueOf("-￥44.0".substring("-￥44.0".indexOf("￥") + 1)));
+        MtCheckData aa = new MtCheckData();
+        String cookies = "JSESSIONID=17c5itwlsv6op1ez2cg4blkkmw;Path=/;shopCategory=food;Path=/;Expires=Mon, 15-May-2017 21:00:07 GMT;wpush_server_url=wss://wpush.meituan.com;Path=/;device_uuid_rebuild=;Path=/;Expires=Thu, 01-Jan-1970 00:00:00 GMT;uuid_update=true;Path=/;Expires=Sat, 14-May-2022 19:00:07 GMT;device_uuid=!b964effc-3767-47ff-9f0c-28943da07256;Path=/;Expires=Sat, 14-May-2022 19:00:07 GMT;existBrandPoi=false;Path=/;Expires=Wed, 14-Jun-2017 19:00:07 GMT;isChain=0;Path=/;Expires=Wed, 14-Jun-2017 19:00:07 GMT;shopCategory=food;Path=/;Expires=Mon, 15-May-2017 20:00:07 GMT;city_id=430100;Path=/;Expires=Wed, 14-Jun-2017 19:00:07 GMT;isOfflineSelfOpen=0;Path=/;Expires=Wed, 14-Jun-2017 19:00:07 GMT;selfOpenWmPoiList=[];Path=/;Expires=Wed, 14-Jun-2017 19:00:07 GMT;wmPoiId=946931;Path=/;Expires=Wed, 14-Jun-2017 19:00:07 GMT;brandId=-1;Path=/;Expires=Wed, 14-Jun-2017 19:00:07 GMT;token=060ZtN65vVQuTNaT-dLW_cUc7uZwsV5KkubKkE5feU9Q*;Path=/;Expires=Wed, 14-Jun-2017 19:00:07 GMT;acctId=20980703;Path=/;Expires=Wed, 14-Jun-2017 19:00:07 GMT;wpush_server_url=wss://wpush.meituan.com;Path=/;";
+        String queryStr = "?getNewVo=1&wmOrderPayType=2&wmOrderStatus=-2&sortField=1&lastLabel=&nextLabel=&_token="
+                + aa.getValue(cookies, "token");
+        //        queryStr = queryStr + "&startDate=" + "2017-05-15" + "&endDate="
+        //                + "2017-05-15";
         //        String result = HttpRequest.sendGet2(UrlUtil.mtQuery + queryStr,
         //                cookies);
         //        log.info(result);
-        //        //        String resul1 = HttpRequest.sendGet2("https://waimaie.meituan.com/finance/v2/finance/orderChecking/export/download/meituan_waimai_file_bill_export-2017-05-04-690320.xls",
-        //        //                cookies);
-        //        //        log.info(resul1);
-        //        
+        //        String resul1 = HttpRequest.sendGet2("https://waimaie.meituan.com/finance/v2/finance/orderChecking/export/download/meituan_waimai_file_bill_export-2017-05-04-690320.xls",
+        //                cookies);
+        //        log.info(resul1);
+        
         //        JSONObject retJo = JSON.parseObject(result);
-        //        JSONArray orderListJa = retJo.getJSONArray("wmOrderList");
-        //        JSONArray chargeJa = new JSONArray();
-        //        for (Object o : orderListJa) {
-        //            JSONObject eachData = (JSONObject)o;
-        //            String status = JsonUtil.getString(eachData, "status");
-        //            
-        //            /**
-        //             * "status": 2 --未接单状态
-        //                "status": 4 --已接单
-        //                "status": 9 --订单取消(用户主动取消、超时未接单取消)
-        //                08--15 大概7分钟未接单将取消订单
-        //             */
-        //            //            if ("9".equals(status)) {
-        //            //                continue;
-        //            //            }
-        //            Map<String, String> chargeInfo = HttpRequest.sendPost1(UrlUtil.MT_CI,
-        //                    "chargeInfo=[{wmOrderViewId:"
-        //                            + JsonUtil.getString(eachData, "wm_order_id_view")
-        //                            + ",wmPoiId:"
-        //                            + JsonUtil.getString(eachData, "wm_poi_id") + "}]",
-        //                    cookies);
-        //            log.info("chargeInfo--------------------->result:"
-        //                    + chargeInfo.get("result"));
-        //            
-        //            String chargeRet = chargeInfo.get("result");
-        //            JSONObject chargeJo = JSON.parseObject(chargeRet);
-        //            //            if (JsonUtil.isNotBlank(chargeJo.get("data"))) {
-        //            //                retJa.add(fixData(eachData, chargeJo.getJSONArray("data")
-        //            //                        .getJSONObject(0), username));
-        //            //            }
-        //            chargeJa.add(chargeJo);
-        //        }
-        //        log.info(chargeJa.toString());
+        JSONArray orderListJa = new JSONArray();
+        
+        aa.doinvoke(cookies, "2017-05-15", "", orderListJa);
+        log.info(orderListJa.toString());
+        
+        JSONArray chargeJa = new JSONArray();
+        for (Object o : orderListJa) {
+            JSONObject eachData = (JSONObject)o;
+            String status = JsonUtil.getString(eachData, "status");
+            
+            /**
+             * "status": 2 --未接单状态
+                "status": 4 --已接单
+                "status": 9 --订单取消(用户主动取消、超时未接单取消)
+                08--15 大概7分钟未接单将取消订单
+             */
+            //            if ("9".equals(status)) {
+            //                continue;
+            //            }
+            Map<String, String> chargeInfo = HttpRequest.sendPost1(UrlUtil.MT_CI,
+                    "chargeInfo=[{wmOrderViewId:"
+                            + JsonUtil.getString(eachData, "wm_order_id_view")
+                            + ",wmPoiId:"
+                            + JsonUtil.getString(eachData, "wm_poi_id") + "}]",
+                    cookies);
+            log.info("chargeInfo--------------------->result:"
+                    + chargeInfo.get("result"));
+            
+            String chargeRet = chargeInfo.get("result");
+            JSONObject chargeJo = JSON.parseObject(chargeRet);
+            //            if (JsonUtil.isNotBlank(chargeJo.get("data"))) {
+            //                retJa.add(fixData(eachData, chargeJo.getJSONArray("data")
+            //                        .getJSONObject(0), username));
+            //            }
+            chargeJa.add(chargeJo);
+        }
+        log.info(chargeJa.toString());
     }
     
 }
